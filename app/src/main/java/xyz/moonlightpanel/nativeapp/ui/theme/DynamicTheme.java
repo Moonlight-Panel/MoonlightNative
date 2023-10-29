@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import xyz.moonlightpanel.nativeapp.ui.layout.MainLayoutKt;
+
 public class DynamicTheme {
     private static String currentTheme = "default";
     private static boolean isInit = false;
@@ -39,7 +41,6 @@ public class DynamicTheme {
     private static void init(){
         if(isInit)
             return;
-
         isInit = true;
         themes = new ArrayList<>();
         themes.add(getDefault());
@@ -53,7 +54,7 @@ public class DynamicTheme {
                 .isDarkTheme(true)
                 .withItem(builder -> builder
                         .withId("App::bg")
-                        .withColor((byte) 30, (byte) 30, (byte) 45, (byte) 255)
+                        .withColor(21,21,33, (byte) 255)
                         .withDescription("Background color of the App")
                         .build())
                 // Button dimensions
@@ -122,6 +123,27 @@ public class DynamicTheme {
                         .withId("Button::Info/Border")
                         .withColor(114, 57, 234,255)
                         .withDescription("Border color for all info buttons")
+                        .build())
+                // Navigation
+                .withItem(builder -> builder
+                        .withId("Navigation::Background")
+                        .withColor(30,30,45,255)
+                        .withDescription("Background color of the navigation bar")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::IconColor")
+                        .withColor(86,86,116,255)
+                        .withDescription("Color of the navigation bar icons")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::TextColor")
+                        .withColor(146,146,159,255)
+                        .withDescription("Color of the navigation bar text")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::ClickColor")
+                        .withColor(1,1,3,255)
+                        .withDescription("Color of the navigation bar click animation")
                         .build())
                 .build();
     }

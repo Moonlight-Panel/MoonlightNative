@@ -1,4 +1,4 @@
-package xyz.moonlightpanel.nativeapp.ui.components
+package xyz.moonlightpanel.nativeapp.ui.components.interaction
 
 enum class MlButtonType {
     Primary,
