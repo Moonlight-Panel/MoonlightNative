@@ -11,7 +11,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        NavigationManager.instance.registerPage("/Account") { AccountPage() }
+        NavigationManager.instance.registerPage("/Account", { AccountPage() }, { t -> AccountPagePreloader(t) })
         NavigationManager.instance.registerPage("/Community") { CommunityPage() }
         NavigationManager.instance.registerPage("/Dashboard") { DashboardPage() }
         NavigationManager.instance.registerPage("/Services") { ServicesPage() }

@@ -57,6 +57,11 @@ public class DynamicTheme {
                         .withColor(21,21,33, (byte) 255)
                         .withDescription("Background color of the App")
                         .build())
+                .withItem(builder -> builder
+                        .withId("App::ContentPadding")
+                        .withDouble(15)
+                        .withDescription("padding for the components")
+                        .build())
                 // Button dimensions
                 .withItem(builder -> builder
                         .withId("Button::px")
@@ -154,6 +159,37 @@ public class DynamicTheme {
                         .withId("Navigation::Height")
                         .withDouble(72)
                         .withDescription("height of the navigation bar")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::LoaderSize")
+                        .withDouble(72)
+                        .withDescription("size of the loader")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::LoaderPadding")
+                        .withDouble(36)
+                        .withDescription("top padding of the loader")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::LoaderDuration")
+                        .withDouble(1500)
+                        .withDescription("duration of the loader animation")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::LoaderColor")
+                        .withColor(62,151,255,255)
+                        .withDescription("color of the loader")
+                        .build())
+                // Header Component
+                .withItem(builder -> builder
+                        .withId("Header::Color")
+                        .withColor(255,255,255,255)
+                        .withDescription("color of the header text")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Header::FontSize")
+                        .withDouble(48)
+                        .withDescription("font size of the header text")
                         .build())
                 .build();
     }

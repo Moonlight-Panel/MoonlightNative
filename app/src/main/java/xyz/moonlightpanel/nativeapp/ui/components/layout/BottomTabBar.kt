@@ -38,11 +38,12 @@ import xyz.moonlightpanel.nativeapp.ui.theme.kt
 fun BottomTabBar() {
     val theme = DynamicTheme.getCurrentTheme();
     val bg = theme.getItem("Navigation::Background").asColor().kt();
+    val barHeight = theme.getItem("Navigation::Height").asDouble().toInt();
 
     Box(modifier = Modifier
         .fillMaxWidth()
         .background(bg)
-        .height(72.dp))
+        .height(barHeight.dp))
     {
         Row {
             BottomBarButton(icon = R.drawable.bxs_dashboard, text = "Dashboard", modifier = Modifier.weight(1f), onClick = {
@@ -57,11 +58,14 @@ fun BottomTabBar() {
             BottomBarButton(icon = R.drawable.bx_group, text = "Community", modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Community")
             })
+            BottomBarButton(icon = R.drawable.bx_user_circle, text = "Me", modifier = Modifier.weight(1f), onClick = {
+                NavigationManager.instance.showPage("/Account")
+            })
         }
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun BottomTabBarPreview() {
     BottomTabBar()

@@ -51,7 +51,7 @@ fun BottomBarButton(modifier: Modifier = Modifier, icon: Int, text: String, onCl
                         .align(Alignment.CenterHorizontally),
                     tint = iconCol
                 )
-                Text(text = text, color = textCol, modifier = Modifier.padding(top = (0).dp))
+                Text(text = text, color = textCol, modifier = Modifier.padding(top = (0).dp).align(Alignment.CenterHorizontally))
             }
         }
     }
