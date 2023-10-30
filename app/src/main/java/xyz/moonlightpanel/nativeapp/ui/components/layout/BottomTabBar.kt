@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import xyz.moonlightpanel.nativeapp.R
+import xyz.moonlightpanel.nativeapp.lang.Langpack
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager
 import xyz.moonlightpanel.nativeapp.ui.accessor.NavigationManager
 import xyz.moonlightpanel.nativeapp.ui.components.interaction.MlButton
@@ -40,25 +41,27 @@ fun BottomTabBar() {
     val bg = theme.getItem("Navigation::Background").asColor().kt();
     val barHeight = theme.getItem("Navigation::Height").asDouble().toInt();
 
+    val lang = Langpack.INSTANCE.locale
+
     Box(modifier = Modifier
         .fillMaxWidth()
         .background(bg)
         .height(barHeight.dp))
     {
         Row {
-            BottomBarButton(icon = R.drawable.bxs_dashboard, text = "Dashboard", modifier = Modifier.weight(1f), onClick = {
+            BottomBarButton(icon = R.drawable.bxs_dashboard, text = lang.translate("navigation.dashboard"), modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Dashboard")
             })
-            BottomBarButton(icon = R.drawable.bx_store_alt, text = "Store", modifier = Modifier.weight(1f), onClick = {
+            BottomBarButton(icon = R.drawable.bx_store_alt, text = lang.translate("navigation.store"), modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Store")
             })
-            BottomBarButton(icon = R.drawable.bxs_component, text = "Services", modifier = Modifier.weight(1f), onClick = {
+            BottomBarButton(icon = R.drawable.bxs_component, text = lang.translate("navigation.services"), modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Services")
             })
-            BottomBarButton(icon = R.drawable.bx_group, text = "Community", modifier = Modifier.weight(1f), onClick = {
+            BottomBarButton(icon = R.drawable.bx_group, text = lang.translate("navigation.community"), modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Community")
             })
-            BottomBarButton(icon = R.drawable.bx_user_circle, text = "Me", modifier = Modifier.weight(1f), onClick = {
+            BottomBarButton(icon = R.drawable.bx_user_circle, text = lang.translate("navigation.account"), modifier = Modifier.weight(1f), onClick = {
                 NavigationManager.instance.showPage("/Account")
             })
         }

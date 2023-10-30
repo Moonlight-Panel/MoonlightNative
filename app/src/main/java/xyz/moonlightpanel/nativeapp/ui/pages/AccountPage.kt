@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.api.ApiClient
+import xyz.moonlightpanel.nativeapp.lang.Langpack
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager
 import xyz.moonlightpanel.nativeapp.ui.components.display.Header
 
@@ -16,9 +17,11 @@ fun AccountPage(){
     val apiClient = ApiClient.INSTANCE;
     val accountManger = apiClient.accountManagementApi;
 
+    val lang = Langpack.INSTANCE.locale
+
     Box(modifier = Modifier.fillMaxSize()){
         Column {
-            Header(text = "Account")
+            Header(text = lang.translate("pages.account"))
         }
     }
 }
