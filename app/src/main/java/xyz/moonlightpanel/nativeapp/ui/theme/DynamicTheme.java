@@ -145,6 +145,16 @@ public class DynamicTheme {
                         .withColor(1,1,3,255)
                         .withDescription("Color of the navigation bar click animation")
                         .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::IconSize")
+                        .withDouble(30)
+                        .withDescription("size of the navigation bar items")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Navigation::Height")
+                        .withDouble(72)
+                        .withDescription("height of the navigation bar")
+                        .build())
                 .build();
     }
 }

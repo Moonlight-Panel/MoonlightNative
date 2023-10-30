@@ -30,6 +30,7 @@ fun BottomBarButton(modifier: Modifier = Modifier, icon: Int, text: String, onCl
     val iconCol = theme.getItem("Navigation::IconColor").asColor().kt();
     val textCol = theme.getItem("Navigation::TextColor").asColor().kt();
     val clickCol = theme.getItem("Navigation::ClickColor").asColor().kt();
+    val iconSize = theme.getItem("Navigation::IconSize").asDouble();
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -46,7 +47,7 @@ fun BottomBarButton(modifier: Modifier = Modifier, icon: Int, text: String, onCl
                     painter = painterResource(icon),
                     contentDescription = text,
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(iconSize.dp)
                         .align(Alignment.CenterHorizontally),
                     tint = iconCol
                 )
