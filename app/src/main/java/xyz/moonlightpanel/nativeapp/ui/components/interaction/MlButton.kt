@@ -16,10 +16,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import xyz.moonlightpanel.nativeapp.ui.theme.DynamicTheme
 import xyz.moonlightpanel.nativeapp.ui.theme.kt
 
@@ -35,6 +42,8 @@ fun MlButton(text: String, type: MlButtonType, onClick: () -> Unit = {}) {
     val textColor = theme.getItem("Button::Text").asColor().kt()
 
     val interactionSource = remember { MutableInteractionSource() }
+    val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    val focusManager = LocalFocusManager.current
 
     Box(
         modifier = Modifier
@@ -48,7 +57,12 @@ fun MlButton(text: String, type: MlButtonType, onClick: () -> Unit = {}) {
             .size(Dp.Unspecified)
             .fillMaxWidth()
             .clickable(
-                onClick = onClick,
+                onClick = {
+                    uiScope.launch {
+                        focusManager.clearFocus()
+                    }
+                    onClick()
+                },
                 interactionSource = interactionSource,
                 indication = rememberRipple(color = borderColor)
             )

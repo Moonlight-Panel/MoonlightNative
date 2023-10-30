@@ -10,7 +10,7 @@ import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.api.ApiClient
 import xyz.moonlightpanel.nativeapp.lang.Langpack
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager
-import xyz.moonlightpanel.nativeapp.ui.components.display.Header
+import xyz.moonlightpanel.nativeapp.ui.components.display.MlHeader
 
 @Composable
 fun AccountPage(){
@@ -21,7 +21,7 @@ fun AccountPage(){
 
     Box(modifier = Modifier.fillMaxSize()){
         Column {
-            Header(text = lang.translate("pages.account"))
+            MlHeader(text = lang.translate("pages.account"))
         }
     }
 }

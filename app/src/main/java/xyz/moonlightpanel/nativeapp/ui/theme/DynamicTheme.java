@@ -191,6 +191,42 @@ public class DynamicTheme {
                         .withDouble(48)
                         .withDescription("font size of the header text")
                         .build())
+                // TextBox Component
+                .withItem(builder -> builder
+                        .withId("TextBox::PaddingX")
+                        .withDouble(15)
+                        .withDescription("horizontal padding of the text box component")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::PaddingY")
+                        .withDouble(8)
+                        .withDescription("vertical padding of the text box component")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::TopPaddingOverflow")
+                        .withDouble(1.5)
+                        .withDescription("value is added to the top padding")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::FocusPlaceholderPadding")
+                        .withDouble(2)
+                        .withDescription("padding of the placeholder in focus state")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::BorderColor")
+                        .withColor(71,71,97,255)
+                        .withDescription("border color of the text box component")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::PlaceholderColor")
+                        .withColor(86,86,116,255)
+                        .withDescription("placeholder color of the text box component")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("TextBox::TextColor")
+                        .withColor(146,146,159,255)
+                        .withDescription("text color of the text box component")
+                        .build())
                 .build();
     }
 }

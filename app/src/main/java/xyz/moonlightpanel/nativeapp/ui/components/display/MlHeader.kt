@@ -12,7 +12,7 @@ import xyz.moonlightpanel.nativeapp.ui.theme.DynamicTheme
 import xyz.moonlightpanel.nativeapp.ui.theme.kt
 
 @Composable
-fun Header(text: String){
+fun MlHeader(text: String){
     val theme = DynamicTheme.getCurrentTheme();
     val col = theme.getItem("Header::Color").asColor().kt()
     val size = theme.getItem("Header::FontSize").asDouble()
@@ -24,6 +24,6 @@ fun Header(text: String){
 
 @Preview
 @Composable
-fun HeaderPreview(){
-    Header(text = "Hello World!")
+fun MlHeaderPreview(){
+    MlHeader(text = "Hello World!")
 }
