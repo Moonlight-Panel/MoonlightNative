@@ -191,6 +191,12 @@ public class DynamicTheme {
                         .withDouble(48)
                         .withDescription("font size of the header text")
                         .build())
+                // Label Component
+                .withItem(builder -> builder
+                        .withId("Label::Color")
+                        .withColor(71, 71, 97,255)
+                        .withDescription("color of the header text")
+                        .build())
                 // TextBox Component
                 .withItem(builder -> builder
                         .withId("TextBox::PaddingX")
@@ -226,6 +232,12 @@ public class DynamicTheme {
                         .withId("TextBox::TextColor")
                         .withColor(146,146,159,255)
                         .withDescription("text color of the text box component")
+                        .build())
+                // Account Page
+                .withItem(builder -> builder
+                        .withId("AccountPage::Error")
+                        .withColor(241,65,108,255)
+                        .withDescription("error color for the account page")
                         .build())
                 .build();
     }

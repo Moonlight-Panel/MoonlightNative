@@ -3,6 +3,7 @@ package xyz.moonlightpanel.nativeapp.ui.accessor
 import androidx.compose.runtime.Composable
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.DelegateT
+import xyz.moonlightpanel.nativeapp.workflows.Workflow
 
 class NavigationManager {
     private var pages: MutableMap<String, @Composable () -> Unit> = mutableMapOf()
@@ -55,8 +56,8 @@ class NavigationManager {
 
     fun finishInit(){
         if(!init){
-            init = true;
-            showPage("/Dashboard")
+            init = true
+            Workflow.trigger(Workflow.STARTUP)
         }
     }
 

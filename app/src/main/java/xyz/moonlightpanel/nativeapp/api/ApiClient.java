@@ -5,6 +5,7 @@ import xyz.moonlightpanel.nativeapp.api.clean.AccountManagementApi;
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager;
 
 public class ApiClient {
+    private boolean inPreview = false;
     public ApiClient(){
         accountManagementApi = new AccountManagementApi(this);
     }
@@ -19,7 +20,8 @@ public class ApiClient {
 
     public void triggerMockDataLoadingAnimation(){
         try {
-            Thread.sleep(400);
+            if(!inPreview)
+                Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -37,5 +39,9 @@ public class ApiClient {
         };
         t = new Thread(r);
         t.start();
+    }
+
+    public void setInPreview() {
+        inPreview = true;
     }
 }
