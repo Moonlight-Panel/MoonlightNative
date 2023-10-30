@@ -82,15 +82,13 @@ public class AccountManagementApi {
     public void login(String email, String password, Delegate onStart, DelegateT<Boolean> onFinish) {
         AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
         client.exec(() -> {
-            Log.d("XTC", email + " " + password);
+            client.triggerMockDataLoadingAnimation();
             if (email.trim().equals("hello@world") && password.trim().equals("hello")) {
                 this.email = email;
                 loginActionSuccess.set(true);
-                Log.d("XTC", "success");
             }
             else {
                 loginActionSuccess.set(false);
-                Log.d("XTC", "fail");
             }
         }, () -> {
             Log.d("XTC", loginActionSuccess + "");
