@@ -24,7 +24,6 @@ public class LoginResponseWorkflow extends Workflow{
             LayoutManager.hideNavigation();
         }
         else {
-            NavigationManager.Companion.getInstance().showPage("/Login");
             LayoutManager.hideNavigation();
         }
     }
