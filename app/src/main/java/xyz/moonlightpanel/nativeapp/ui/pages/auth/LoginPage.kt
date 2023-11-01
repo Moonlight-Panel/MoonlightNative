@@ -4,9 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -19,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,9 +27,10 @@ import kotlinx.coroutines.launch
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.R
 import xyz.moonlightpanel.nativeapp.api.ApiClient
+import xyz.moonlightpanel.nativeapp.api.models.LoginResponseData
 import xyz.moonlightpanel.nativeapp.lang.Langpack
+import xyz.moonlightpanel.nativeapp.storage.AppStorage
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager
-import xyz.moonlightpanel.nativeapp.ui.accessor.NavigationManager
 import xyz.moonlightpanel.nativeapp.ui.components.display.MlHeader
 import xyz.moonlightpanel.nativeapp.ui.components.display.MlLabel
 import xyz.moonlightpanel.nativeapp.ui.components.display.MlLink
@@ -44,7 +42,6 @@ import xyz.moonlightpanel.nativeapp.ui.pages.ViewModelManager
 import xyz.moonlightpanel.nativeapp.ui.theme.DynamicTheme
 import xyz.moonlightpanel.nativeapp.ui.theme.kt
 import xyz.moonlightpanel.nativeapp.ui.viewmodels.LoginViewModel
-import kotlin.math.log
 
 @Composable
 fun LoginPage(){
@@ -52,9 +49,11 @@ fun LoginPage(){
     val apiClient = ApiClient.INSTANCE
     val accountManager = apiClient.accountManagementApi
 
+    var lastResponse = AppStorage.INSTANCE.load<LoginResponseData>("LoginResponseData")
+
     val viewModel = LoginViewModel.INSTANCE
     var error by remember {
-        mutableStateOf(accountManager.loginError)
+        mutableStateOf(if (lastResponse == null) "" else lastResponse!!.error)
     }
 
     val theme = DynamicTheme.getCurrentTheme()
@@ -81,19 +80,13 @@ fun LoginPage(){
                     color = errorColor
                 )
             MlButton(text = lang["pages.login"], type = MlButtonType.Primary, onClick = {
-                accountManager.login(viewModel.email, viewModel.password, {
+                accountManager.login(viewModel.email, viewModel.password,"", {
                     LayoutManager.showLoadingIndicator()
                 }, {
                     uiScope.launch {
                         LayoutManager.hideLoadingIndicator()
-
-                        if(it){
-                            NavigationManager.instance.showPage("/Dashboard")
-                            LayoutManager.showNavigation()
-                        }
-                        else {
-                            error = accountManager.loginError
-                        }
+                        lastResponse = AppStorage.INSTANCE.load("LoginResponseData")
+                        error = if (lastResponse == null) "" else lastResponse!!.error
                     }
                 })
             })

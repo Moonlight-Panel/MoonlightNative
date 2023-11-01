@@ -188,7 +188,7 @@ public class DynamicTheme {
                         .build())
                 .withItem(builder -> builder
                         .withId("Header::FontSize")
-                        .withDouble(48)
+                        .withDouble(42)
                         .withDescription("font size of the header text")
                         .build())
                 // Label Component

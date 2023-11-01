@@ -2,6 +2,9 @@ package xyz.moonlightpanel.nativeapp.api;
 
 import android.util.Log;
 
+import androidx.core.util.Function;
+import androidx.core.util.Supplier;
+
 import org.java_websocket.WebSocket;
 import org.java_websocket.WebSocketImpl;
 import org.java_websocket.WebSocketListener;
@@ -20,6 +23,7 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 
 import xyz.moonlightpanel.nativeapp.Delegate;
@@ -73,19 +77,24 @@ public class ApiClient {
             rdb = request.buildRequest(rdb);
 
             byte[] data = rdb.toBytes();
-            sendMessage(data);
+            try {
+                sendMessage(data);
 
-            onNextRequest = (bData) -> {
-                Log.i("WSX", "Handler call");
-                ResponseDataContext rdc = new ResponseDataContext(bData);
-                request.readResponse(rdc);
-                request.handleData();
+                onNextRequest = (bData) -> {
+                    Log.i("WSX", "Handler call");
+                    ResponseDataContext rdc = new ResponseDataContext(bData);
+                    request.readResponse(rdc);
+                    request.handleData();
 
-                onFinish.invoke(request);
+                    onFinish.invoke(request);
 
-                onNextRequest = null;
-                Thread.currentThread().interrupt();
-            };
+                    onNextRequest = null;
+                    Thread.currentThread().interrupt();
+                };
+            }
+            catch (Exception e){
+
+            }
         };
         t = new Thread(r);
         t.start();
@@ -102,7 +111,9 @@ public class ApiClient {
             try {
                 onStart.invoke();
                 client = new WSClient(new URI(ApiConstants.API_URL), this);
-                client.connectBlocking();
+                boolean b = client.connectBlocking(500, TimeUnit.MILLISECONDS);
+                if(!b)
+                    throw new Exception("Connection timed out");
             } catch (Exception e) {
                 Log.e("EXC", e.toString());
                 onFinishInit.invoke(false);
@@ -153,5 +164,11 @@ public class ApiClient {
 
             onFinish.invoke(successful);
         }, onStart);
+    }
+
+    public AbstractRequest getRequest(AbstractRequest randomInstance){
+        int id = randomInstance.getId();
+
+        return handlers.get(id);
     }
 }

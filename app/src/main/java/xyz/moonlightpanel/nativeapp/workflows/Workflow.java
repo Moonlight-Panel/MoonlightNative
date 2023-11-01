@@ -8,4 +8,5 @@ public abstract class Workflow {
     }
 
     public static final Workflow STARTUP = new StartupWorkflow();
+    public static final Workflow LOGIN_RESPONSE = new LoginResponseWorkflow();
 }

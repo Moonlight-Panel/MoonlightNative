@@ -49,6 +49,14 @@ public class Langpack {
                 .withTranslation("register.advertisement", "Sign up and let the adventure begin")
                 .withTranslation("register.alreadyregistered", "Already signed up?")
                 .withTranslation("register.login", "Sign in")
+                .withTranslation("connection.error", "Connection error")
+                .withTranslation("connection.error_hint", "Make sure that you are connected to the internet and that Endelon Hosting is reachable.")
+                .withTranslation("connection.reconnect", "Reconnect")
+                .withTranslation("login.error_0", "")
+                .withTranslation("login.error_1", "The given credential do not match any account")
+                .withTranslation("login.error_2", "2FA code required")
+                .withTranslation("login.error_3", "2FA key is missing. Please contact the support to fix your account")
+                .withTranslation("login.error_4", "2FA code is invalid")
                 .build());
         locales.add(new LocaleBuilder()
                 .withName("de_de")
@@ -72,6 +80,14 @@ public class Langpack {
                 .withTranslation("account.passwordconfirm", "Passwort wiederholen")
                 .withTranslation("register.alreadyregistered", "Bereits registriert?")
                 .withTranslation("register.login", "Anmelden")
+                .withTranslation("connection.error", "Verbindungsfehler")
+                .withTranslation("connection.error_hint", "Stelle sicher, dass du mit dem Internet verbunden bist und Endelon Hosting erreichen kannst.")
+                .withTranslation("connection.reconnect", "Erneut verbinden")
+                .withTranslation("login.error_0", "")
+                .withTranslation("login.error_1", "Es wurde kein Konto mit diesen Zugangsdaten gefunden")
+                .withTranslation("login.error_2", "Ein 2FA Code ist erfoderlich")
+                .withTranslation("login.error_3", "Der 2FA Key fehlt. Kontaktiere den Support, um dieses Problem zu beheben.")
+                .withTranslation("login.error_4", "Der 2FA Code ist ungültig")
                 .build());
     }
 }

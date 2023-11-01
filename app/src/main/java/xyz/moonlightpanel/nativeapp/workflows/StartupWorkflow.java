@@ -27,7 +27,7 @@ public class StartupWorkflow extends Workflow {
                     return;
                 }
 
-                afterConnect();
+                apiClient.getAccountManagementApi().loginIfTokenExists(() -> {}, this::afterConnect);
             });
         });
     }
