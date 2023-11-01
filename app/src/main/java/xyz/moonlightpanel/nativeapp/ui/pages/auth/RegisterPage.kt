@@ -80,7 +80,7 @@ fun RegisterPage(){
                     color = errorColor
                 )
             MlButton(text = lang["pages.register"], type = MlButtonType.Primary, onClick = {
-                accountManager.register(viewModel.email, viewModel.username, viewModel.password, viewModel.passwordConfirm, {
+                accountManager.register(viewModel.email, viewModel.username, viewModel.password, viewModel.passwordConfirm, "", {
                     LayoutManager.showLoadingIndicator()
                 }, {
                     uiScope.launch {

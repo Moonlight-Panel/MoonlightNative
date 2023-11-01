@@ -29,18 +29,18 @@ public class AccountManagementApi {
             return;
         }
 
-        client.exec(() -> {
+        /*client.exec(() -> {
             loaded = true;
             username = "helloWorldUsername";
             email = "helloWorld@hello.world";
             isLoggedIn = false;
 
             client.triggerMockDataLoadingAnimation();
-        }, onFinish, onStart);
+        }, onFinish, onStart);*/
     }
 
     public void save(Delegate onStart, DelegateT<String[]> onFinish){
-        client.exec(() -> {
+        /*client.exec(() -> {
             client.triggerMockDataLoadingAnimation();
         }, () ->{
             String[] error = new String[]{"Error 1", "Error 2"};
@@ -49,7 +49,7 @@ public class AccountManagementApi {
         }, () -> {
             error = new String[0];
             onStart.invoke();
-        });
+        });*/
     }
 
     public String getUsername() {
@@ -86,7 +86,7 @@ public class AccountManagementApi {
 
     public void login(String email, String password, Delegate onStart, DelegateT<Boolean> onFinish) {
         AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
-        client.exec(() -> {
+        /*client.exec(() -> {
             client.triggerMockDataLoadingAnimation();
             if (email.trim().equals("hello@world") && password.trim().equals("hello")) {
                 this.email = email;
@@ -99,12 +99,12 @@ public class AccountManagementApi {
             Locale lang = Langpack.INSTANCE.getLocale();
             loginError = loginActionSuccess.get() ? "" : lang.get("login.failed");
             onFinish.invoke(loginActionSuccess.get());
-        }, onStart);
+        }, onStart);*/
     }
 
-    public void register(String email, String username, String password, String confirmPassword, Delegate onStart, DelegateT<Boolean> onFinish) {
+    public void register(String email, String username, String password, String confirmPassword, String _2faCode, Delegate onStart, DelegateT<Boolean> onFinish) {
         AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
-        client.exec(() -> {
+        /*client.exec(() -> {
             client.triggerMockDataLoadingAnimation();
             if (email.trim().equals("hello@world") && password.trim().equals("hello")) {
                 this.email = email;
@@ -117,6 +117,6 @@ public class AccountManagementApi {
             Locale lang = Langpack.INSTANCE.getLocale();
             registerError = loginActionSuccess.get() ? "" : lang.get("login.failed");
             onFinish.invoke(loginActionSuccess.get());
-        }, onStart);
+        }, onStart);*/
     }
 }

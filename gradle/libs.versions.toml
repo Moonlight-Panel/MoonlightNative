@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0-alpha11"
+java-websocket-Java-WebSocket = "1.5.4"
 kotlin = "1.9.0"
 core-ktx = "1.12.0"
 junit = "4.13.2"
@@ -8,6 +9,10 @@ espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.2"
 activity-compose = "1.7.2"
 compose-bom = "2023.08.00"
+javax-websocket-all = "1.1"
+javax-websocket-api = "1.1"
+tyrus-standalone-client = "2.1.3"
+java-websocket = "1.5.4"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -24,6 +29,9 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+javax-websocket-all = { group = "javax.websocket", name = "javax.websocket-all", version.ref = "javax-websocket-all" }
+javax-websocket-api = { group = "javax.websocket", name = "javax.websocket-api", version.ref = "javax-websocket-api" }
+tyrus-standalone-client = { group = "org.glassfish.tyrus.bundles", name = "tyrus-standalone-client", version.ref = "tyrus-standalone-client" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

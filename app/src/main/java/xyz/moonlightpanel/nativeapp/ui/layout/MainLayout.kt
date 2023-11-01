@@ -37,6 +37,10 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.DelegateT
 import xyz.moonlightpanel.nativeapp.R
@@ -63,6 +67,8 @@ fun MainLayout() {
     val loaderPadding = theme.getItem("Navigation::LoaderPadding").asDouble()
     val loaderColor = theme.getItem("Navigation::LoaderColor").asColor().kt()
 
+    val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
     var pd by remember {
         mutableIntStateOf(barHeight.toInt())
     }
@@ -85,25 +91,41 @@ fun MainLayout() {
         mutableStateOf(dialogDefault)
     }
 
-    NavigationManager.instance.__putPage = DelegateT { t ->
-        run {
-            page = t
+    NavigationManager.instance.__putPage = DelegateT {
+        uiScope.launch {
+            page = it
         }
     }
-    NavigationManager.instance.__putDialog = DelegateT { t ->
-        run {
-            dialog = t
+    NavigationManager.instance.__putDialog = DelegateT {
+
+        uiScope.launch {
+            dialog = it
             dialogOpen = true
         }
+
     }
     NavigationManager.instance.__destroyDialog = Delegate {
-        dialogOpen = false
+        uiScope.launch {
+            dialogOpen = false
+        }
     }
 
     LayoutManager._showNav =
-        Delegate { pd = barHeight.toInt() }
-    LayoutManager._hideNav = Delegate { pd = 0 }
-    LayoutManager._setLoading = DelegateT { x -> loadingIndicator = x }
+        Delegate {
+            uiScope.launch {
+                pd = barHeight.toInt()
+            }
+        }
+    LayoutManager._hideNav = Delegate {
+        uiScope.launch {
+            pd = 0
+        }
+    }
+    LayoutManager._setLoading = DelegateT {
+        uiScope.launch {
+            loadingIndicator = it
+        }
+    }
 
     val view = LocalView.current
     if (!view.isInEditMode) {
