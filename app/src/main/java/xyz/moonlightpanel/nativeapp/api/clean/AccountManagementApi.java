@@ -16,6 +16,7 @@ public class AccountManagementApi {
     private String email;
     private String[] error = new String[0];
     private String loginError = "";
+    private String registerError = "";
     private boolean isLoggedIn = false;
     private boolean loaded = false;
     public AccountManagementApi(ApiClient client){
@@ -79,6 +80,10 @@ public class AccountManagementApi {
         return loginError;
     }
 
+    public String getRegisterError() {
+        return registerError;
+    }
+
     public void login(String email, String password, Delegate onStart, DelegateT<Boolean> onFinish) {
         AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
         client.exec(() -> {
@@ -91,9 +96,26 @@ public class AccountManagementApi {
                 loginActionSuccess.set(false);
             }
         }, () -> {
-            Log.d("XTC", loginActionSuccess + "");
             Locale lang = Langpack.INSTANCE.getLocale();
             loginError = loginActionSuccess.get() ? "" : lang.get("login.failed");
+            onFinish.invoke(loginActionSuccess.get());
+        }, onStart);
+    }
+
+    public void register(String email, String username, String password, String confirmPassword, Delegate onStart, DelegateT<Boolean> onFinish) {
+        AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
+        client.exec(() -> {
+            client.triggerMockDataLoadingAnimation();
+            if (email.trim().equals("hello@world") && password.trim().equals("hello")) {
+                this.email = email;
+                loginActionSuccess.set(true);
+            }
+            else {
+                loginActionSuccess.set(false);
+            }
+        }, () -> {
+            Locale lang = Langpack.INSTANCE.getLocale();
+            registerError = loginActionSuccess.get() ? "" : lang.get("login.failed");
             onFinish.invoke(loginActionSuccess.get());
         }, onStart);
     }

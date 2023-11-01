@@ -195,7 +195,13 @@ public class DynamicTheme {
                 .withItem(builder -> builder
                         .withId("Label::Color")
                         .withColor(71, 71, 97,255)
-                        .withDescription("color of the header text")
+                        .withDescription("color of the label text")
+                        .build())
+                // Link Component
+                .withItem(builder -> builder
+                        .withId("Link::Color")
+                        .withColor(100,171,255,255)
+                        .withDescription("color of the link text")
                         .build())
                 // TextBox Component
                 .withItem(builder -> builder

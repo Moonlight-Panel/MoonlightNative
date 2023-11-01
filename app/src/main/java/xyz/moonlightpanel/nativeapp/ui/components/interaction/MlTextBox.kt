@@ -50,9 +50,8 @@ import kotlinx.coroutines.launch
 import xyz.moonlightpanel.nativeapp.ui.theme.DynamicTheme
 import xyz.moonlightpanel.nativeapp.ui.theme.kt
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MlTextBox(placeholder: String, value: String = "", onValueChanged: (String) -> Unit = { }) {
+fun MlTextBox(placeholder: String, value: String = "", onValueChanged: (String) -> Unit = { }, showTextRenderer: (String) -> String = {it}) {
     val theme = DynamicTheme.getCurrentTheme()
     val paddingX = theme.getItem("TextBox::PaddingX").asDouble()
     val paddingY = theme.getItem("TextBox::PaddingY").asDouble()
@@ -126,7 +125,7 @@ fun MlTextBox(placeholder: String, value: String = "", onValueChanged: (String) 
                         if (uValue.text == "") {
                             Text(text = placeholder, color = placeholderColor)
                         } else {
-                            Text(text = uValue.text, color = textColor)
+                            Text(text = showTextRenderer(uValue.text), color = textColor)
                         }
                     }
                 } else {
@@ -188,4 +187,14 @@ fun MlTextBoxPreview(){
             MlButton(text = "Testy", type = MlButtonType.Info)
         }
     }
+}
+
+val passwordCensoring: (String) -> String = {
+    var str = ""
+
+    for (i in it.indices)
+        str += "*"
+
+    val result = str
+    result
 }

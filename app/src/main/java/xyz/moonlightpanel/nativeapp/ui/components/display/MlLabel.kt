@@ -12,10 +12,12 @@ import xyz.moonlightpanel.nativeapp.ui.theme.DynamicTheme
 import xyz.moonlightpanel.nativeapp.ui.theme.kt
 
 @Composable
-fun MlLabel(text: String){
+fun MlLabel(text: String, withPadding: Boolean = true ){
     val theme = DynamicTheme.getCurrentTheme();
     val col = theme.getItem("Label::Color").asColor().kt()
-    val px = theme.getItem("App::ContentPadding").asDouble()
+    var px = theme.getItem("App::ContentPadding").asDouble()
+    if(!withPadding)
+        px = 0.0
     Box(modifier = Modifier.padding(horizontal = px.dp).padding(top = (px / 2).dp)) {
         Text(text = text, color = col)
     }

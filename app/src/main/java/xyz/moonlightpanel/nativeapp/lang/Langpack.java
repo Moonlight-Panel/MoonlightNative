@@ -40,9 +40,15 @@ public class Langpack {
                 .withTranslation("account.username", "Username")
                 .withTranslation("account.email", "Email")
                 .withTranslation("account.password", "Password")
+                .withTranslation("account.passwordconfirm", "Repeat your password")
                 .withTranslation("account.save", "Save")
                 .withTranslation("login.failed", "No user with these credential combination found")
                 .withTranslation("login.advertisement", "Sign in and manage your services from all around the world")
+                .withTranslation("login.notregistered", "Not signed up yet?")
+                .withTranslation("login.register", "Sign up")
+                .withTranslation("register.advertisement", "Sign up and let the adventure begin")
+                .withTranslation("register.alreadyregistered", "Already signed up?")
+                .withTranslation("register.login", "Sign in")
                 .build());
         locales.add(new LocaleBuilder()
                 .withName("de_de")
@@ -60,6 +66,12 @@ public class Langpack {
                 .withTranslation("account.save", "Speichern")
                 .withTranslation("login.failed", "Es konnte kein Benutzer mit diesen Daten gefunden werden")
                 .withTranslation("login.advertisement", "Melde dich an und verwalte deine Dienste von überall")
+                .withTranslation("login.notregistered", "Noch nicht registriert?")
+                .withTranslation("login.register", "Registrieren")
+                .withTranslation("register.advertisement", "Registriere dich und lasse das Abenteuer beginnen")
+                .withTranslation("account.passwordconfirm", "Passwort wiederholen")
+                .withTranslation("register.alreadyregistered", "Bereits registriert?")
+                .withTranslation("register.login", "Anmelden")
                 .build());
     }
 }

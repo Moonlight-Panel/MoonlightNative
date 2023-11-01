@@ -1,18 +1,20 @@
 package xyz.moonlightpanel.nativeapp.ui.viewmodels;
 
-import xyz.moonlightpanel.nativeapp.Delegate;
 import xyz.moonlightpanel.nativeapp.ui.pages.ViewModelManager;
 
-public class LoginViewModel {
-    public LoginViewModel() {
+public class RegisterViewModel {
+    public RegisterViewModel() {
         ViewModelManager.clearMethods.add(() -> {
+            username = "";
             email = "";
             password = "";
+            passwordConfirm = "";
         });
     }
-
     public String email = "";
+    public String username = "";
     public String password = "";
+    public String passwordConfirm = "";
 
-    public static LoginViewModel INSTANCE = new LoginViewModel();
+    public static RegisterViewModel INSTANCE = new RegisterViewModel();
 }
