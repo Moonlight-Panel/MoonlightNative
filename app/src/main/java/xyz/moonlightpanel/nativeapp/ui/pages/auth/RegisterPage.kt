@@ -51,7 +51,7 @@ fun RegisterPage(){
 
     val viewModel = RegisterViewModel.INSTANCE
     var error by remember {
-        mutableStateOf(accountManager.registerError)
+        mutableStateOf(viewModel.error)
     }
 
     val theme = DynamicTheme.getCurrentTheme()
@@ -80,19 +80,12 @@ fun RegisterPage(){
                     color = errorColor
                 )
             MlButton(text = lang["pages.register"], type = MlButtonType.Primary, onClick = {
-                accountManager.register(viewModel.email, viewModel.username, viewModel.password, viewModel.passwordConfirm, "", {
+                accountManager.register(viewModel.email, viewModel.username, viewModel.password, viewModel.passwordConfirm,  {
                     LayoutManager.showLoadingIndicator()
                 }, {
                     uiScope.launch {
+                        error = viewModel.error
                         LayoutManager.hideLoadingIndicator()
-
-                        if(it){
-                            NavigationManager.instance.showPage("/WaitForEmailConfirm")
-                            LayoutManager.hideNavigation()
-                        }
-                        else {
-                            error = accountManager.registerError
-                        }
                     }
                 })
             })

@@ -1,8 +1,10 @@
 package xyz.moonlightpanel.nativeapp.ui.accessor
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.DelegateT
+import xyz.moonlightpanel.nativeapp.storage.AppStorage
 import xyz.moonlightpanel.nativeapp.workflows.Workflow
 
 class NavigationManager {
@@ -25,12 +27,17 @@ class NavigationManager {
             preloader?.invoke(Delegate {
                 __putPage(pages[path])
                 currentPage = path
+
+                AppStorage.INSTANCE["LastPage"] = currentPage
+                Log.w("LLL",AppStorage.INSTANCE["LastPage"])
             })
         }
         else
         {
             __putPage(pages[path])
             currentPage = path
+            AppStorage.INSTANCE["LastPage"] = currentPage
+            Log.w("LLL",AppStorage.INSTANCE["LastPage"])
         }
     }
     fun showDialog(path: String){

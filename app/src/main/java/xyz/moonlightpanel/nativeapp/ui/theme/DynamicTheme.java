@@ -62,6 +62,16 @@ public class DynamicTheme {
                         .withDouble(15)
                         .withDescription("padding for the components")
                         .build())
+                .withItem(builder -> builder
+                        .withId("App::Success")
+                        .withColor(80,205,137,255)
+                        .withDescription("Default success color")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("App::Danger")
+                        .withColor(241,65,108,255)
+                        .withDescription("Default danger color")
+                        .build())
                 // Button dimensions
                 .withItem(builder -> builder
                         .withId("Button::px")

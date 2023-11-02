@@ -65,6 +65,7 @@ public class ApiClient {
     public void exec(int apiFunction, DelegateT<AbstractRequest> onFinish, Delegate onStart){
         Thread t = null;
         Runnable r = () -> {
+            Log.i("APXI", apiFunction + " " + handlers.get(apiFunction).getClass().getName());
             onStart.invoke();
 
             AbstractRequest request = handlers.get(apiFunction);

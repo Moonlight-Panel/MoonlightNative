@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
         NavigationManager.instance.registerPage("/Account", { AccountPage() }, { t -> AccountPagePreloader(t) })
         NavigationManager.instance.registerPage("/ConnectionError", { ConnectionErrorPage() }, { t -> ConnectionErrorPagePreloader(t) })
         NavigationManager.instance.registerPage("/EnterTotpCode", { EnterTotpCodePage() }, { t -> EnterTotpCodePagePreloader(t) })
+        NavigationManager.instance.registerPage("/WaitForEmailConfirm", { WaitForEmailConfirmPage() }, { t -> WaitForEmailConfirmPagePreloader(t) })
         NavigationManager.instance.registerPage("/Community") { CommunityPage() }
         NavigationManager.instance.registerPage("/Dashboard") { DashboardPage() }
         NavigationManager.instance.registerPage("/Services") { ServicesPage() }

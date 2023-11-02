@@ -9,6 +9,7 @@ import xyz.moonlightpanel.nativeapp.DelegateT;
 import xyz.moonlightpanel.nativeapp.api.ApiClient;
 import xyz.moonlightpanel.nativeapp.api.models.LoginRequestData;
 import xyz.moonlightpanel.nativeapp.api.models.LoginResponseData;
+import xyz.moonlightpanel.nativeapp.api.models.RegisterRequestData;
 import xyz.moonlightpanel.nativeapp.api.raw.auth.TokenBasedLoginRequest;
 import xyz.moonlightpanel.nativeapp.lang.Langpack;
 import xyz.moonlightpanel.nativeapp.lang.Locale;
@@ -20,7 +21,6 @@ public class AccountManagementApi {
     private String username;
     private String email;
     private String[] error = new String[0];
-    private String registerError = "";
     private boolean isLoggedIn = false;
     private boolean loaded = false;
     public AccountManagementApi(ApiClient client){
@@ -80,10 +80,6 @@ public class AccountManagementApi {
         return isLoggedIn;
     }
 
-    public String getRegisterError() {
-        return registerError;
-    }
-
     public void login(String email, String password, String _2fa, Delegate onStart, Delegate onFinish) {
         LoginRequestData data = new LoginRequestData();
         data.email =email.trim();
@@ -97,27 +93,39 @@ public class AccountManagementApi {
         }, onStart);
     }
 
-    public void register(String email, String username, String password, String confirmPassword, String _2faCode, Delegate onStart, DelegateT<Boolean> onFinish) {
-        AtomicBoolean loginActionSuccess = new AtomicBoolean(false);
-        /*client.exec(() -> {
-            client.triggerMockDataLoadingAnimation();
-            if (email.trim().equals("hello@world") && password.trim().equals("hello")) {
-                this.email = email;
-                loginActionSuccess.set(true);
-            }
-            else {
-                loginActionSuccess.set(false);
-            }
-        }, () -> {
-            Locale lang = Langpack.INSTANCE.getLocale();
-            registerError = loginActionSuccess.get() ? "" : lang.get("login.failed");
-            onFinish.invoke(loginActionSuccess.get());
-        }, onStart);*/
+    public void register(String email, String username, String password, String confirmPassword, Delegate onStart, Delegate onFinish) {
+        RegisterRequestData data = new RegisterRequestData();
+        data.email =email.trim();
+        data.password = password.trim();
+        data.username = username.trim();
+        data.passwordConfirm = confirmPassword.trim();
+        AppStorage.INSTANCE.save("RegisterRequestData", data);
+
+        client.exec(4, (t) -> {
+            Workflow.trigger(Workflow.REGISTER_RESPONSE);
+            onFinish.invoke();
+        }, onStart);
     }
 
     public void loginIfTokenExists(Delegate onStart, Delegate onFinish){
         client.exec(2, t -> {
             isLoggedIn = ((TokenBasedLoginRequest)t).isSuccess();
+            onFinish.invoke();
+        }, onStart);
+    }
+
+    public void requestVerifyEmail(Delegate onStart, Delegate onFinish){
+        AppStorage.INSTANCE.save("SendMail", true);
+
+        client.exec(5, t -> {
+            onFinish.invoke();
+        }, onStart);
+    }
+
+    public void loadIsVerifiedEmail(Delegate onStart, Delegate onFinish){
+        AppStorage.INSTANCE.save("SendMail", false);
+
+        client.exec(5, t -> {
             onFinish.invoke();
         }, onStart);
     }
