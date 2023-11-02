@@ -139,6 +139,47 @@ public class DynamicTheme {
                         .withColor(114, 57, 234,255)
                         .withDescription("Border color for all info buttons")
                         .build())
+                // Box border colors
+                .withItem(builder -> builder
+                        .withId("Box::Light/Border")
+                        .withColor(43,43,64,255)
+                        .withDescription("Border color for all light boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Primary/Border")
+                        .withColor(0,158,247,255)
+                        .withDescription("Border color for all primary boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Dark/Border")
+                        .withColor(71,71,97,255)
+                        .withDescription("Border color for all dark boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Secondary/Border")
+                        .withColor(50,50,72,255)
+                        .withDescription("Border color for all secondary boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Success/Border")
+                        .withColor(80,205,137,255)
+                        .withDescription("Border color for all success boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Danger/Border")
+                        .withColor(241,65,108,255)
+                        .withDescription("Border color for all danger boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Warning/Border")
+                        .withColor(255,199,0,255)
+                        .withDescription("Border color for all warning boxes")
+                        .build())
+                .withItem(builder -> builder
+                        .withId("Box::Info/Border")
+                        .withColor(114, 57, 234,255)
+                        .withDescription("Border color for all info boxes")
+                        .build())
                 // Navigation
                 .withItem(builder -> builder
                         .withId("Navigation::Background")
