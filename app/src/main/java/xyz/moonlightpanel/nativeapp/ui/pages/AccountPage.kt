@@ -20,9 +20,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.api.ApiClient
+import xyz.moonlightpanel.nativeapp.api.models.AccountData
 import xyz.moonlightpanel.nativeapp.lang.Langpack
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager
+import xyz.moonlightpanel.nativeapp.ui.components.display.MlBox
+import xyz.moonlightpanel.nativeapp.ui.components.display.MlBoxColorScheme
 import xyz.moonlightpanel.nativeapp.ui.components.display.MlHeader
+import xyz.moonlightpanel.nativeapp.ui.components.display.MlLabel
+import xyz.moonlightpanel.nativeapp.ui.components.display.MlSubheader
 import xyz.moonlightpanel.nativeapp.ui.components.interaction.MlButton
 import xyz.moonlightpanel.nativeapp.ui.components.interaction.MlButtonType
 import xyz.moonlightpanel.nativeapp.ui.components.interaction.MlTextBox
@@ -35,8 +40,13 @@ fun AccountPage() {
     val accountManager = apiClient.accountManagementApi;
 
     val lang = Langpack.INSTANCE.locale
+
+    var accountData by remember {
+        mutableStateOf(if(accountManager.accountData == null) AccountData() else accountManager.accountData)
+    }
+
     var error by remember {
-        mutableStateOf(accountManager.error.joinToString("\n"))
+        mutableStateOf(accountData.saveError)
     }
 
     val theme = DynamicTheme.getCurrentTheme()
@@ -48,14 +58,29 @@ fun AccountPage() {
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
             MlHeader(text = lang.translate("pages.account"))
-            Text(text = "Avatar will be implemented someday")
-            //TODO
+            MlBox(colorScheme = MlBoxColorScheme.Info) {
+                MlLabel(text = "Avatar will be implemented someday")
+                //TODO: Implement Avatar
+            }
             MlTextBox(placeholder = lang["account.username"],
-                value = accountManager.username,
-                onValueChanged = { accountManager.username = it })
+                value = accountData.username,
+                onValueChanged = { accountData.username = it; accountManager.accountData = accountData })
             MlTextBox(placeholder = lang["account.email"],
-                value = accountManager.email,
-                onValueChanged = { accountManager.email = it })
+                value = accountData.email,
+                onValueChanged = { accountData.email = it; accountManager.accountData = accountData })
+
+            if(accountData.totpEnabled) {
+                MlBox(colorScheme = MlBoxColorScheme.Warning) {
+                    MlSubheader(text = lang["account.deactivate2fa"])
+                    MlButton(text = lang["account.deactivate"], type = MlButtonType.Danger)
+                }
+            }
+            else {
+                MlBox(colorScheme = MlBoxColorScheme.Info) {
+                    MlSubheader(text = lang["account.activate2fa"])
+                    MlButton(text = lang["account.activate"], type = MlButtonType.Primary)
+                }
+            }
 
             if(error != "")
                 Text(
@@ -69,7 +94,8 @@ fun AccountPage() {
                     LayoutManager.showLoadingIndicator()
                 }, {
                     uiScope.launch {
-                        error = it.joinToString("\n")
+                        accountData = accountManager.accountData
+                        error = accountData.saveError
                         LayoutManager.hideLoadingIndicator()
                         Log.d("XTC", error)
                     }

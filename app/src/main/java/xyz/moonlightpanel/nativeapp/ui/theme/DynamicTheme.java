@@ -296,6 +296,12 @@ public class DynamicTheme {
                         .withColor(241,65,108,255)
                         .withDescription("error color for the account page")
                         .build())
+                // Subheader component
+                .withItem(builder -> builder
+                        .withId("Subheader::Color")
+                        .withColor(255,255,255,255)
+                        .withDescription("color of the subheader text")
+                        .build())
                 .build();
     }
 }

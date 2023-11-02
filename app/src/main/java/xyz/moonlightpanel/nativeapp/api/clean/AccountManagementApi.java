@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import xyz.moonlightpanel.nativeapp.Delegate;
 import xyz.moonlightpanel.nativeapp.DelegateT;
 import xyz.moonlightpanel.nativeapp.api.ApiClient;
+import xyz.moonlightpanel.nativeapp.api.models.AccountData;
 import xyz.moonlightpanel.nativeapp.api.models.LoginRequestData;
 import xyz.moonlightpanel.nativeapp.api.models.LoginResponseData;
 import xyz.moonlightpanel.nativeapp.api.models.RegisterRequestData;
@@ -18,62 +19,30 @@ import xyz.moonlightpanel.nativeapp.workflows.Workflow;
 
 public class AccountManagementApi {
     private ApiClient client;
-    private String username;
-    private String email;
-    private String[] error = new String[0];
     private boolean isLoggedIn = false;
-    private boolean loaded = false;
     public AccountManagementApi(ApiClient client){
         this.client = client;
     }
 
     public void loadData(Delegate onStart, Delegate onFinish){
-        if(loaded){
-            onFinish.invoke();
-            return;
-        }
+        setAccountData(new AccountData());
 
-        /*client.exec(() -> {
-            loaded = true;
-            username = "helloWorldUsername";
-            email = "helloWorld@hello.world";
-            isLoggedIn = false;
-
-            client.triggerMockDataLoadingAnimation();
-        }, onFinish, onStart);*/
+        client.exec(6, (t) -> onFinish.invoke(), onStart);
     }
 
-    public void save(Delegate onStart, DelegateT<String[]> onFinish){
-        /*client.exec(() -> {
-            client.triggerMockDataLoadingAnimation();
-        }, () ->{
-            String[] error = new String[]{"Error 1", "Error 2"};
-            this.error = error;
-            onFinish.invoke(error);
-        }, () -> {
-            error = new String[0];
-            onStart.invoke();
-        });*/
+    public void save(Delegate onStart, Delegate onFinish){
+        AccountData d = getAccountData();
+        d.dataChange = true;
+        setAccountData(d);
+
+        client.exec(6, (t) -> onFinish.invoke(), onStart);
     }
 
-    public String getUsername() {
-        return username;
+    public AccountData getAccountData(){
+        return AppStorage.INSTANCE.load("AccountData");
     }
-
-    public String[] getError() {
-        return error;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAccountData(AccountData data){
+        AppStorage.INSTANCE.save("AccountData", data);
     }
 
     public boolean isLoggedIn() {

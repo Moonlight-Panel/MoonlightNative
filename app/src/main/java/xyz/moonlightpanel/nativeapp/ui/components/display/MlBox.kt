@@ -23,14 +23,19 @@ fun MlBox(colorScheme: MlBoxColorScheme, modifier: Modifier = Modifier, content:
     val borderColor = theme.getItem("Box::${colorScheme}/Border").asColor().kt()
 
     Box(modifier = Modifier
+        .fillMaxWidth()
         .padding(vertical = (contentPadding / 2).dp)
         .padding(horizontal = contentPadding.dp)) {
         Box(
             modifier = modifier
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(5.dp))
                 .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(5.dp))
         ) {
-            content()
+            Column(modifier = Modifier.fillMaxWidth()) {
+                content()
+                Spacer(modifier = Modifier.height((contentPadding / 2).dp))
+            }
         }
     }
 }
@@ -41,11 +46,8 @@ fun MlBoxPreview(){
     val theme = DynamicTheme.getCurrentTheme()
     val contentPadding = theme.getItem("App::ContentPadding").asDouble()
 
-    MlBox(MlBoxColorScheme.Danger){
-        Column(Modifier.fillMaxWidth()) {
-            MlLabel(text = "Hello World!")
-            MlLabel(text = "Hello Compose!")
-            Spacer(modifier = Modifier.height((contentPadding/2).dp))
-        }
+    MlBox(MlBoxColorScheme.Danger) {
+        MlLabel(text = "Hello World!")
+        MlLabel(text = "Hello Compose!")
     }
 }

@@ -83,6 +83,10 @@ public class Langpack {
                 .withTranslation("totp.code", "2FA code")
                 .withTranslation("totp.login", "Sign in")
                 .withTranslation("totp.error", "Code is incorrect")
+                .withTranslation("account.activate2fa", "Enable 2FA")
+                .withTranslation("account.deactivate2fa", "Disable 2FA")
+                .withTranslation("account.activate", "Enable")
+                .withTranslation("account.deactivate", "Disable")
                 .build());
         locales.add(new LocaleBuilder()
                 .withName("de_de")
@@ -140,6 +144,10 @@ public class Langpack {
                 .withTranslation("totp.code", "2FA Code")
                 .withTranslation("totp.login", "Anmelden")
                 .withTranslation("totp.error", "Code ist falsch")
+                .withTranslation("account.activate2fa", "2FA aktivieren")
+                .withTranslation("account.activate", "Aktivieren")
+                .withTranslation("account.deactivate", "Deaktivieren")
+                .withTranslation("account.deactivate2fa", "2FA deaktivieren")
                 .build());
     }
 }
