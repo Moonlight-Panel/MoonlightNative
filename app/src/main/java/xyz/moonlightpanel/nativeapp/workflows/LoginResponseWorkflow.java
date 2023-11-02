@@ -2,16 +2,22 @@ package xyz.moonlightpanel.nativeapp.workflows;
 
 import android.util.Log;
 
+import java.util.Objects;
+
 import xyz.moonlightpanel.nativeapp.api.ApiClient;
 import xyz.moonlightpanel.nativeapp.api.clean.AccountManagementApi;
 import xyz.moonlightpanel.nativeapp.api.models.LoginResponseData;
+import xyz.moonlightpanel.nativeapp.lang.Langpack;
+import xyz.moonlightpanel.nativeapp.lang.Locale;
 import xyz.moonlightpanel.nativeapp.storage.AppStorage;
 import xyz.moonlightpanel.nativeapp.ui.accessor.LayoutManager;
 import xyz.moonlightpanel.nativeapp.ui.accessor.NavigationManager;
+import xyz.moonlightpanel.nativeapp.ui.viewmodels.LoginViewModel;
 
 public class LoginResponseWorkflow extends Workflow{
     @Override
     void run() {
+        Locale lang = Langpack.INSTANCE.getLocale();
         LoginResponseData data = AppStorage.INSTANCE.load("LoginResponseData");
         AccountManagementApi accountManager = ApiClient.INSTANCE.getAccountManagementApi();
         assert data != null;
@@ -46,9 +52,15 @@ public class LoginResponseWorkflow extends Workflow{
         else if(data.requireTotp) {
             NavigationManager.Companion.getInstance().showPage("/EnterTotpCode");
             LayoutManager.hideNavigation();
+            LayoutManager.hideLoadingIndicator();
         }
-        else {
+        else if(!Objects.equals(LoginViewModel.INSTANCE.totp, "")){
+            LoginViewModel.INSTANCE.totpError = lang.get("totp.error");
+            LayoutManager.hideLoadingIndicator();
+        }
+        else{
             LayoutManager.hideNavigation();
+            LayoutManager.hideLoadingIndicator();
         }
     }
 }

@@ -78,6 +78,11 @@ public class Langpack {
                 .withTranslation("email.notverified", "The email address is not yet verified")
                 .withTranslation("email.appexplore", "Open app")
                 .withTranslation("email.verifysuccess", "Your email has successfully been verified. You can now use the app.")
+                .withTranslation("totp.2fa", "2FA")
+                .withTranslation("totp.info", "You need to enter the code the authenticator app shows you in order to login")
+                .withTranslation("totp.code", "2FA code")
+                .withTranslation("totp.login", "Sign in")
+                .withTranslation("totp.error", "Code is incorrect")
                 .build());
         locales.add(new LocaleBuilder()
                 .withName("de_de")
@@ -130,6 +135,11 @@ public class Langpack {
                 .withTranslation("email.notverified", "Die Email Adresse ist noch nicht verifiziert")
                 .withTranslation("email.appexplore", "App öffnen")
                 .withTranslation("email.verifysuccess", "Deine Email Adresse wurde erfolgreich verifiziert. Du kannst nun auf die App zugreifen.")
+                .withTranslation("totp.2fa", "2FA")
+                .withTranslation("totp.info", "Um dich anzumelden, musst du den Code, den dir deine 2FA App zeigt, eingeben.")
+                .withTranslation("totp.code", "2FA Code")
+                .withTranslation("totp.login", "Anmelden")
+                .withTranslation("totp.error", "Code ist falsch")
                 .build());
     }
 }

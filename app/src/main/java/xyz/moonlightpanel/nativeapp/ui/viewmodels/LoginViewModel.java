@@ -13,6 +13,8 @@ public class LoginViewModel {
 
     public String email = "";
     public String password = "";
+    public String totp = "";
+    public String totpError = "";
 
     public static LoginViewModel INSTANCE = new LoginViewModel();
 }
