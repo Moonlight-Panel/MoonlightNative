@@ -14,26 +14,53 @@ import xyz.moonlightpanel.nativeapp.ui.pages.auth.*
 import xyz.moonlightpanel.nativeapp.ui.pages.other.*
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        var isAppLoaded = false
+        var activityReload = false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppStorage.INSTANCE.contentDirectory = applicationContext.filesDir
-
+        activityReload = true
         super.onCreate(savedInstanceState)
 
-        ApiTools.registerRequests()
+        if(!isAppLoaded) {
+            AppStorage.INSTANCE.contentDirectory = applicationContext.filesDir
 
-        NavigationManager.instance.registerPage("/Login", { LoginPage() }, { t -> LoginPagePreloader(t) })
-        NavigationManager.instance.registerPage("/Register", { RegisterPage() }, { t -> RegisterPagePreloader(t) })
-        NavigationManager.instance.registerPage("/Account", { AccountPage() }, { t -> AccountPagePreloader(t) })
-        NavigationManager.instance.registerPage("/ConnectionError", { ConnectionErrorPage() }, { t -> ConnectionErrorPagePreloader(t) })
-        NavigationManager.instance.registerPage("/EnterTotpCode", { EnterTotpCodePage() }, { t -> EnterTotpCodePagePreloader(t) })
-        NavigationManager.instance.registerPage("/WaitForEmailConfirm", { WaitForEmailConfirmPage() }, { t -> WaitForEmailConfirmPagePreloader(t) })
-        NavigationManager.instance.registerPage("/Community") { CommunityPage() }
-        NavigationManager.instance.registerPage("/Dashboard") { DashboardPage() }
-        NavigationManager.instance.registerPage("/Services") { ServicesPage() }
-        NavigationManager.instance.registerPage("/Store") { StorePage() }
+            ApiTools.registerRequests()
+
+            NavigationManager.instance.registerPage(
+                "/Login",
+                { LoginPage() },
+                { t -> LoginPagePreloader(t) })
+            NavigationManager.instance.registerPage(
+                "/Register",
+                { RegisterPage() },
+                { t -> RegisterPagePreloader(t) })
+            NavigationManager.instance.registerPage(
+                "/Account",
+                { AccountPage() },
+                { t -> AccountPagePreloader(t) })
+            NavigationManager.instance.registerPage(
+                "/ConnectionError",
+                { ConnectionErrorPage() },
+                { t -> ConnectionErrorPagePreloader(t) })
+            NavigationManager.instance.registerPage(
+                "/EnterTotpCode",
+                { EnterTotpCodePage() },
+                { t -> EnterTotpCodePagePreloader(t) })
+            NavigationManager.instance.registerPage(
+                "/WaitForEmailConfirm",
+                { WaitForEmailConfirmPage() },
+                { t -> WaitForEmailConfirmPagePreloader(t) })
+            NavigationManager.instance.registerPage("/Community") { CommunityPage() }
+            NavigationManager.instance.registerPage("/Dashboard") { DashboardPage() }
+            NavigationManager.instance.registerPage("/Services") { ServicesPage() }
+            NavigationManager.instance.registerPage("/Store") { StorePage() }
+        }
 
         setContent {
             MainLayout()
         }
+
+        isAppLoaded = true;
     }
 }

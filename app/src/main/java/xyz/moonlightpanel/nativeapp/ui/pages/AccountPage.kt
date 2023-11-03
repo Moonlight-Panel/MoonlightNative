@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,8 +38,8 @@ import xyz.moonlightpanel.nativeapp.ui.theme.kt
 
 @Composable
 fun AccountPage() {
-    val apiClient = ApiClient.INSTANCE;
-    val accountManager = apiClient.accountManagementApi;
+    val apiClient = ApiClient.INSTANCE
+    val accountManager = apiClient.accountManagementApi
 
     val lang = Langpack.INSTANCE.locale
 
@@ -55,7 +57,9 @@ fun AccountPage() {
 
     val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())) {
         Column {
             MlHeader(text = lang.translate("pages.account"))
             MlBox(colorScheme = MlBoxColorScheme.Info) {

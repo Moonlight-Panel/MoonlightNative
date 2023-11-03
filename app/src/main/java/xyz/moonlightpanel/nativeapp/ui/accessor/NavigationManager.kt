@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.Composable
 import xyz.moonlightpanel.nativeapp.Delegate
 import xyz.moonlightpanel.nativeapp.DelegateT
+import xyz.moonlightpanel.nativeapp.MainActivity
 import xyz.moonlightpanel.nativeapp.storage.AppStorage
 import xyz.moonlightpanel.nativeapp.workflows.Workflow
 
@@ -65,6 +66,13 @@ class NavigationManager {
         if(!init){
             init = true
             Workflow.trigger(Workflow.STARTUP)
+        }
+        else {
+            if(currentPage.isNotEmpty() && MainActivity.activityReload){
+                showPage(currentPage)
+
+                MainActivity.activityReload = false
+            }
         }
     }
 
